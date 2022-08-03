@@ -3,7 +3,7 @@ async function connect(){
         return global.connection;
  
     const mysql = require("mysql2/promise");
-    const connection = await mysql.createConnection("mysql://root:senhaexemplo@localhost:3306/nbaapp");
+    const connection = await mysql.createConnection("mysql://root:senhaxpto@localhost:3306/nbaapp");
     console.log("Conectou no MySQL!");
     global.connection = connection;
     return connection;
@@ -35,6 +35,13 @@ async function playedSeasonsByPlayer(id){
     return rows;
 }
 
+async function playerPt3PerTeam(id){
+    const conn = await connect();
+    const[rows] = await conn.query(
+        "SELECT DISTINCT PLAYER_NAME, NICKNAME, cestas FROM players AS p INNER JOIN teams AS t ON p.TEAM_ID = t.TEAM_ID INNER JOIN (select TEAM_ID, SUM(FG3M) AS cestas FROM games_details WHERE PLAYER_ID = "+id+" GROUP BY TEAM_ID) AS gt ON gt.TEAM_ID = t. TEAM_ID WHERE p.PLAYER_ID = "+id+";");
+    return rows;
+}
+
 
 async function selectMostHomeWins(){
     const conn = await connect();
@@ -42,16 +49,10 @@ async function selectMostHomeWins(){
     return rows;
 }
 
-async function playerPt3(id){
-    const conn = await connect();
-    const [rows] = await conn.query('SELECT PLAYER_ID, SUM(FG3M) AS pt3 FROM games_details WHERE PLAYER_ID =' + id +' GROUP BY PLAYER_ID;');
-    return rows;
-}
+// async function playerPt3(id){
+//     const conn = await connect();
+//     const [rows] = await conn.query('SELECT PLAYER_ID, SUM(FG3M) AS pt3 FROM games_details WHERE PLAYER_ID =' + id +' GROUP BY PLAYER_ID;');
+//     return rows;
+// }
 
-async function jogosPorTime(id){
-    const conn = await connect();
-    const[rows] = await conn.query("SELECT DISTINCT p.PLAYER_NAME AS 'nome', NICKNAME AS 'time', COUNT(DISTINCT SEASON) AS 'temporadas_jogadas' FROM players AS p INNER JOIN teams AS t ON p.team_id = t.team_id WHERE PLAYER_ID = " +id + " GROUP BY p.player_id, p.team_id;");
-    return rows;
-}
-
-module.exports = {selectPlayers, selectTeams, selectOtherInfos, selectMostHomeWins, playedSeasonsByPlayer, jogosPorTime, playerPt3}
+module.exports = {selectPlayers, selectTeams, selectOtherInfos, selectMostHomeWins, playedSeasonsByPlayer, playerPt3PerTeam, playerPt3}
