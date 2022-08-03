@@ -16,7 +16,6 @@
         <div class="players">
             <h2><%= playedSeasonsByPlayer[0].nome%></h2>
             <p>
-            Total de pontos com cestas de três na carreira:<%=pt3[0].pt3%>
             <br>
             <br>
             Temporadas Jogadas em cada time:
@@ -27,6 +26,17 @@
                     Temporadas jogadas:<%= psbp.temporadas_jogadas%>
                 </p>
             <% }); %>
+            <br>
+            <br>
+            <p>
+            Cestas de 3 por Time:
+            </p>
+            <% playerPt3PerTeam.forEach((pppt, index) => { %>
+                <p>
+                    <%= pppt.NICKNAME%> --- <%=pppt.cestas%>
+                </p>
+            <% }); %>
+
         </div>
     </main>
 </body>
