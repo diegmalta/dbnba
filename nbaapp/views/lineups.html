@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/styles.css">
+    <title>NBA APP :D</title>
+</head>
+<body>
+    <header>
+        <a class="button" href="http://localhost:3000">HOME</a>
+        <h1>Escalações</h1>
+        <a class="button" href="@/otherinfos">Outras Informações</a>
+    </header>
+    <main>
+        <img src="<%= lineUp[0].LOGO%>">
+        <div class="players">
+            <h2>Jogadores:</h2>
+            <% lineUp.forEach((line, index) => { %>
+                <p>
+                    <a href="/lineups/<%=line.PLAYER_ID%>/2019/stats">
+                        -<%=line.PLAYER_NAME%>
+                    </a>
+                </p>
+            <% }); %>
+        </div>
+    </main>
+</body>
+</html>
