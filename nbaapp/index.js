@@ -29,8 +29,9 @@ app.get('/lineups/:id/@/otherinfos', async (req, res) =>{
 app.get('/lineups/:id/:season/stats', async(req, res) => {
     //let mhw =  await db.selectMostHomeWins();
     let playedSeasonsByPlayer = await db.playedSeasonsByPlayer(req.params.id);
-    let pt3 = await db.playerPt3(req.params.id);
-    res.render('stats', {playedSeasonsByPlayer, pt3});
+    // let pt3 = await db.playerPt3(req.params.id);
+    let playerPt3PerTeam = await db.playerPt3PerTeam(req.params.id);
+    res.render('stats', {playedSeasonsByPlayer, playerPt3PerTeam});
 });
 
 app.listen(PORT, (error) =>{
