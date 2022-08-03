@@ -55,4 +55,4 @@ async function selectMostHomeWins(){
 //     return rows;
 // }
 
-module.exports = {selectPlayers, selectTeams, selectOtherInfos, selectMostHomeWins, playedSeasonsByPlayer, playerPt3PerTeam, playerPt3}
+module.exports = {selectPlayers, selectTeams, selectOtherInfos, selectMostHomeWins, playedSeasonsByPlayer, playerPt3PerTeam}
